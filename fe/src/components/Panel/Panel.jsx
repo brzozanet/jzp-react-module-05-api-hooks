@@ -13,10 +13,24 @@ export function Panel() {
             });
     }, []);
 
+    function handleFormSubmit(formData) {
+        fetch("http://localhost:3000/words", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                setData((prevData) => [...prevData, res]);
+            });
+    }
+
     return (
         <>
             <section className={styles.section}>
-                <Form />
+                <Form onFormSubmit={handleFormSubmit} />
                 <List data={data}></List>
             </section>
         </>
