@@ -17,6 +17,12 @@
       "translation": "skakać",
       "category": "verb",
       "id": 3
+    },
+    {
+      "word": "sit",
+      "translation": "siedzieć",
+      "category": "verb",
+      "id": 4
     }
   ]
 }
