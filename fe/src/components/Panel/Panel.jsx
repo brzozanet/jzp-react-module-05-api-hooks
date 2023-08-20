@@ -11,14 +11,29 @@ export function Panel() {
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        let isCanceled = false;
+        console.log(`Efekt! Wartość selectedCategory: ${selectedCategory}`);
+
         const params = selectedCategory ? `?category=${selectedCategory}` : "";
         fetch(`${url}${params}`)
             .then((res) => res.json())
             .then((res) => {
-                setData(res);
+                if (!isCanceled) {
+                    setIsLoading(false);
+                    setData(res);
+                    console.log("Aktualizacja danych");
+                }
             });
+
+        return () => {
+            isCanceled = true;
+            console.log(
+                `Cleanup! Wartość selectedCategory: ${selectedCategory}`
+            );
+        };
     }, [selectedCategory]);
 
     function handleFormSubmit(formData) {
@@ -58,6 +73,10 @@ export function Panel() {
 
     function handleFilterClick(category) {
         setSelectedCategory(category);
+    }
+
+    if (isLoading) {
+        return <p>Ładowanie...</p>;
     }
 
     return (
