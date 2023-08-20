@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import styles from "./Panel.module.css";
 import { List } from "../List/List";
 import { Form } from "../Form/Form";
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 import { FilterButton } from "../FilterButton/FilterButton";
+import { getCategoryInfo } from "../../utils/getCategoryInfo";
+import { Info } from "../Info/Info";
 
 const url = "http://localhost:3000/words";
 
@@ -15,7 +17,6 @@ export function Panel() {
 
     useEffect(() => {
         let isCanceled = false;
-        console.log(`Efekt! Wartość selectedCategory: ${selectedCategory}`);
 
         const params = selectedCategory ? `?category=${selectedCategory}` : "";
         fetch(`${url}${params}`)
@@ -30,11 +31,13 @@ export function Panel() {
 
         return () => {
             isCanceled = true;
-            console.log(
-                `Cleanup! Wartość selectedCategory: ${selectedCategory}`
-            );
         };
     }, [selectedCategory]);
+
+    const categoryInfo = useMemo(
+        () => getCategoryInfo(selectedCategory),
+        [selectedCategory]
+    );
 
     function handleFormSubmit(formData) {
         fetch(url, {
@@ -84,6 +87,7 @@ export function Panel() {
             {error && <ErrorMessage>{error}</ErrorMessage>}
 
             <section className={styles.section}>
+                <Info>{categoryInfo}</Info>
                 <Form onFormSubmit={handleFormSubmit} />
                 <div className={styles.filters}>
                     <FilterButton
