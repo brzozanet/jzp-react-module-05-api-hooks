@@ -2,16 +2,14 @@ import { useState, useEffect, useMemo } from "react";
 import styles from "./Panel.module.css";
 import { List } from "../List/List";
 import { Form } from "../Form/Form";
-import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 import { FilterButton } from "../FilterButton/FilterButton";
 import { getCategoryInfo } from "../../utils/getCategoryInfo";
 import { Info } from "../Info/Info";
 
 const url = "http://localhost:3000/words";
 
-export function Panel() {
+export function Panel({ onError }) {
     const [data, setData] = useState([]);
-    const [error, setError] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -20,19 +18,30 @@ export function Panel() {
 
         const params = selectedCategory ? `?category=${selectedCategory}` : "";
         fetch(`${url}${params}`)
-            .then((res) => res.json())
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    throw new Error(
+                        "Błąd podczas ładowania danych! Spróbuj ponownie."
+                    );
+                }
+            })
             .then((res) => {
                 if (!isCanceled) {
                     setIsLoading(false);
                     setData(res);
                     console.log("Aktualizacja danych");
                 }
+            })
+            .catch((error) => {
+                onError(error);
             });
 
         return () => {
             isCanceled = true;
         };
-    }, [selectedCategory]);
+    }, [selectedCategory, onError]);
 
     const categoryInfo = useMemo(
         () => getCategoryInfo(selectedCategory),
@@ -66,12 +75,7 @@ export function Panel() {
                     throw new Error("Błąd podczas usuwania! Spróbuj ponownie.");
                 }
             })
-            .catch((error) => {
-                setError(error.message);
-                setTimeout(() => {
-                    setError(null);
-                }, 3000);
-            });
+            .catch(onError);
     }
 
     function handleFilterClick(category) {
@@ -84,8 +88,6 @@ export function Panel() {
 
     return (
         <>
-            {error && <ErrorMessage>{error}</ErrorMessage>}
-
             <section className={styles.section}>
                 <Info>{categoryInfo}</Info>
                 <Form onFormSubmit={handleFormSubmit} />

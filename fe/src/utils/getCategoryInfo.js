@@ -1,7 +1,7 @@
 export function getCategoryInfo(category) {
-    for (let i = 0; i < 10_000; i++) {
-        console.log("getCategoryInfo");
-    }
+    // for (let i = 0; i < 10_000; i++) {
+    //     console.log("getCategoryInfo");
+    // }
 
     switch (category) {
         case "noun":
