@@ -1,5 +1,5 @@
 .button {
-    background-color: transparent;
+    background-color: var(--color-white);
     border: none;
     padding: 4px 8px;
     cursor: pointer;
