@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
-import { List } from "../List/List";
 import styles from "./Panel.module.css";
+import { List } from "../List/List";
 import { Form } from "../Form/Form";
+import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 
 export function Panel() {
     const [data, setData] = useState([]);
+    const [error, setError] = useState(null);
+
     useEffect(() => {
         fetch("http://localhost:3000/words")
             .then((res) => res.json())
@@ -27,11 +30,31 @@ export function Panel() {
             });
     }
 
+    function handleDeleteItem(id) {
+        fetch(`http://localhost:3000/words/${id}`, { method: "DELETE" })
+            .then((res) => {
+                if (res.ok) {
+                    setData((prevData) =>
+                        prevData.filter((item) => item.id !== id)
+                    );
+                } else {
+                    throw new Error("Błąd podczas usuwania! Spróbuj ponownie.");
+                }
+            })
+            .catch((error) => {
+                setError(error.message);
+                setTimeout(() => {
+                    setError(null);
+                }, 3000);
+            });
+    }
+
     return (
         <>
+            {error && <ErrorMessage>{error}</ErrorMessage>}
             <section className={styles.section}>
                 <Form onFormSubmit={handleFormSubmit} />
-                <List data={data}></List>
+                <List data={data} onDeleteItem={handleDeleteItem} />
             </section>
         </>
     );
