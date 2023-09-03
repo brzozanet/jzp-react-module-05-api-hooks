@@ -1,12 +1,6 @@
 {
   "words": [
     {
-      "id": 2,
-      "word": "pies",
-      "translation": "dog",
-      "category": "noun"
-    },
-    {
       "id": 3,
       "word": "skakać",
       "translation": "jump",
@@ -17,6 +11,18 @@
       "translation": "car",
       "category": "noun",
       "id": 4
+    },
+    {
+      "word": "biegać",
+      "translation": "run",
+      "category": "verb",
+      "id": 5
+    },
+    {
+      "word": "skakać",
+      "translation": "jump",
+      "category": "verb",
+      "id": 6
     }
   ]
 }
