@@ -40,7 +40,7 @@ export function Panel() {
     }
 
     function handleDeleteItem(id) {
-        fetch(`${url}/words/${id}`, {
+        fetch(`${url}/${id}`, {
             method: "DELETE",
         })
             .then((res) => {
