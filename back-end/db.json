@@ -1,16 +1,16 @@
 {
   "words": [
     {
-      "id": 3,
-      "word": "skakać",
-      "translation": "jump",
-      "category": "verb"
+      "word": "kot",
+      "translation": "cat",
+      "category": "noun",
+      "id": 7
     },
     {
-      "word": "biegać",
-      "translation": "run",
+      "word": "mówić",
+      "translation": "speak",
       "category": "verb",
-      "id": 5
+      "id": 8
     }
   ]
 }
