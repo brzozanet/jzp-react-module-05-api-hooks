@@ -11,6 +11,30 @@
       "translation": "speak",
       "category": "verb",
       "id": 8
+    },
+    {
+      "word": "dog",
+      "translation": "pies",
+      "category": "noun",
+      "id": 9
+    },
+    {
+      "word": "biurko",
+      "translation": "desk",
+      "category": "noun",
+      "id": 10
+    },
+    {
+      "word": "skakać",
+      "translation": "jump",
+      "category": "verb",
+      "id": 11
+    },
+    {
+      "word": "biegać",
+      "translation": "run",
+      "category": "verb",
+      "id": 12
     }
   ]
 }
