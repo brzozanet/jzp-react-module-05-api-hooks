@@ -14,13 +14,20 @@ export function Panel() {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     useEffect(() => {
+        let isCanceled = false;
         const params = selectedCategory ? `?category=${selectedCategory}` : "";
         fetch(`${url}${params}`)
             .then((res) => res.json())
             .then((res) => {
-                setData(res);
-                setIsLoading(false);
-            });
+                if (!isCanceled) {
+                    setData(res);
+                    setIsLoading(false);
+                }
+            }); 
+
+        return () => {
+            isCanceled = true;
+        };
     }, [selectedCategory]);
 
     function handleFormSubmit(formData) {
