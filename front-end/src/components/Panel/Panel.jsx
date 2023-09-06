@@ -25,7 +25,7 @@ export function Panel({ onError }) {
 
                 throw new Error("Błąd ładowania danych!");
             })
-            .then((res) => {
+            .then((res) => {``
                 if (!isCanceled) {
                     setData(res);
                     setIsLoading(false);
