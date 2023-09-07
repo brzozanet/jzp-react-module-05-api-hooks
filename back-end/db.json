@@ -25,16 +25,10 @@
       "id": 10
     },
     {
-      "word": "skakać",
-      "translation": "jump",
-      "category": "verb",
+      "word": "piłka",
+      "translation": "ball",
+      "category": "noun",
       "id": 11
-    },
-    {
-      "word": "biegać",
-      "translation": "run",
-      "category": "verb",
-      "id": 12
     }
   ]
 }
